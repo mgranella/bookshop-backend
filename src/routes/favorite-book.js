@@ -3,10 +3,14 @@ const router = Router();
 const fetch = require('node-fetch');
 const baseUrl = 'https://jsonbase.com/favorite-books';
 
-router.get('/:userFavoriteBook', async (req, res) => {
+//router.get('/:userFavoriteBook', async (req, res) => {
+//router.get('/', async (req, res) => {  
+router.get('/', async (req, res) => {    
   try {
-    const { userFavoriteBook } = req.params;
-    const finalUrl = (userFavoriteBook) => `${baseUrl}/${encodeURIComponent(userFavoriteBook)}`;
+    const user = req.query.user;
+    const bookId = req.query.bookid;
+    const userFavoriteBook = `${encodeURIComponent(user)}-${encodeURIComponent(bookId)}`;
+    const finalUrl = (userFavoriteBook) => `${baseUrl}/${userFavoriteBook}`;
     const bookUrl = finalUrl(userFavoriteBook);
 
     // get favorite books for the user in jsonbase.com
